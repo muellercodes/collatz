@@ -1,14 +1,12 @@
-import React from 'react';
+import React from "react";
 // import d3 from 'd3';
 
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
-
-const isEven = (number: number) => (number % 2 === 0) ? true : false;
-const nextNumber = (x: number) => isEven(x) ? x/2 : 3 * x + 1;
+const isEven = (number: number) => (number % 2 === 0 ? true : false);
+const nextNumber = (x: number) => (isEven(x) ? x / 2 : 3 * x + 1);
 const processCollatz = (x: number, array: number[] = []) => {
-
   if (x !== 1) {
     array.push(x);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,29 +16,27 @@ const processCollatz = (x: number, array: number[] = []) => {
   return array;
 };
 
-const amountOfStepsRange = (rangeTop: number, rangeBottom: number = 0) => { 
-  let array = new Array(rangeTop-rangeBottom);
+const amountOfStepsRange = (rangeTop: number, rangeBottom: number = 0) => {
+  let array = new Array(rangeTop - rangeBottom);
   let stepsArray = [];
-  for (let index = rangeBottom+1; index <= array.length; index++) {
+  for (let index = rangeBottom + 1; index <= array.length; index++) {
     const processed = processCollatz(index);
     stepsArray.push(processed.length);
   }
   return stepsArray;
 };
 
-const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => { return amountOfStepsRange(rangeTop, rangeBottom).map((curr, i, array) => {
-  if (curr === array[i-1] || curr === array[i+1]) {
-    return {curr, dupe: true}
-  } else {
-    return {curr, dupe: false}
-  }
-})};
+const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
+  return amountOfStepsRange(rangeTop, rangeBottom).map((curr, i, array) => {
+    if (curr === array[i - 1] || curr === array[i + 1]) {
+      return { curr, dupe: true };
+    } else {
+      return { curr, dupe: false };
+    }
+  });
+};
 
-
-
-console.log(stepDuplications(5000));
-
-
+console.log(stepDuplications(50000));
 
 function App() {
   return (
