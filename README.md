@@ -2,6 +2,12 @@
 
 Just messing around with the 3x + 1 patterns. May get to plotting things with d3 eventually but for now just 👀 at the console.logs.
 
+For more reading:
+https://en.wikipedia.org/wiki/Collatz_conjecture
+
+For watching and inspiration:
+https://www.youtube.com/watch?v=094y1Z2wpJg
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
