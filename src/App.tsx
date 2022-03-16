@@ -11,6 +11,8 @@ const processCollatz = (x: number, array: number[] = []) => {
     array.push(x);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     processCollatz(nextNumber(x), array);
+  } else {
+    array.push(x);
   }
 
   return array;
@@ -20,23 +22,38 @@ const amountOfStepsRange = (rangeTop: number, rangeBottom: number = 0) => {
   let array = new Array(rangeTop - rangeBottom);
   let stepsArray = [];
   for (let index = rangeBottom + 1; index <= array.length; index++) {
-    const processed = processCollatz(index);
-    stepsArray.push(processed.length);
+    const stepsToOne = processCollatz(index);
+    stepsArray.push({ length: stepsToOne.length, steps: stepsToOne });
   }
   return stepsArray;
 };
 
 const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
   return amountOfStepsRange(rangeTop, rangeBottom).map((curr, i, array) => {
-    if (curr === array[i - 1] || curr === array[i + 1]) {
-      return { curr, dupe: true };
+    if (
+      curr?.length === array[i - 1]?.length ||
+      curr?.length === array[i + 1]?.length
+    ) {
+      return true;
     } else {
-      return { curr, dupe: false };
+      return false;
     }
+    // if (
+    //   curr?.length === array[i - 1]?.length ||
+    //   curr?.length === array[i + 1]?.length
+    // ) {
+    //   return { dupe: true, curr };
+    // } else {
+    //   return { dupe: false, curr };
+    // }
   });
 };
 
-console.log(stepDuplications(50000));
+const count = 1000000;
+// rn takes about 4 seconds for one million iterations for that range
+console.time(`stepDuplications_${count}`);
+console.log(stepDuplications(count));
+console.timeEnd(`stepDuplications_${count}`);
 
 function App() {
   return (
