@@ -27,6 +27,9 @@ jobs:
     # - name: Deploy to Surge
     #   run:  surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
     
+    - name: Directory Listing
+      run: ls
+
     - name: Deploy to Surge
       uses: dswistowski/surge-sh-action@v1
       with:
