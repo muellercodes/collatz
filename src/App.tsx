@@ -33,12 +33,12 @@ const amountOfStepsRange = (rangeTop: number, rangeBottom: number = 0) => {
 const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
   return amountOfStepsRange(rangeTop, rangeBottom).map((curr, i, array) => {
     if (
-      curr?.length === array[i - 1]?.length ||
-      curr?.length === array[i + 1]?.length
+      curr.length === array[i - 1]?.length ||
+      curr.length === array[i + 1]?.length
     ) {
-      return true;
+      return {length: curr.length, dupe: true};
     } else {
-      return false;
+      return {length: 0, dupe: false};
     }
     // if (
     //   curr?.length === array[i - 1]?.length ||
@@ -62,11 +62,11 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      {stepDuplications(COUNT).map((step: boolean, i, array) => {
+      {stepDuplications(COUNT).map((step: {length: number, dupe: boolean}, i) => {
         // let counter = 0;
         // if (step) 
         return (
-          <div style={{background: step ? "grey" : "white" }}>{`${step}`}</div>
+          <div key={i}>{`${step.dupe ? '-'.repeat(step.length) : '0'}`}</div>
         )
       })}
     </div>
