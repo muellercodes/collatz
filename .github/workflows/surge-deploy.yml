@@ -24,5 +24,13 @@ jobs:
     - name: Install Surge
       run: yarn global add surge
 
-    - name: Deploy to Surge
-      run:  surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+    # - name: Deploy to Surge
+    #   run:  surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+    
+    - name: Deploy to ${{ secrets.SURGE_DOMAIN }}
+      uses: dswistowski/surge-sh-action@v1
+      with:
+        domain: ${{ secrets.SURGE_DOMAIN }}
+        project: './build'
+        login: ${{ secrets.SURGE_LOGIN }}
+        token: ${{ secrets.SURGE_TOKEN }}
