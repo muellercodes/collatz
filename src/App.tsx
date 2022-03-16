@@ -4,6 +4,8 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+const COUNT = 1000;
+
 const isEven = (number: number) => (number % 2 === 0 ? true : false);
 const nextNumber = (x: number) => (isEven(x) ? x / 2 : 3 * x + 1);
 const processCollatz = (x: number, array: number[] = []) => {
@@ -49,29 +51,24 @@ const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
   });
 };
 
-const count = 1000000;
 // rn takes about 4 seconds for one million iterations for that range
-console.time(`stepDuplications_${count}`);
-console.log(stepDuplications(count));
-console.timeEnd(`stepDuplications_${count}`);
+console.time(`stepDuplications_${COUNT}`);
+console.log(stepDuplications(COUNT));
+console.timeEnd(`stepDuplications_${COUNT}`);
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Testing
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      {stepDuplications(COUNT).map((step: boolean, i, array) => {
+        // let counter = 0;
+        // if (step) 
+        return (
+          <div style={{background: step ? "grey" : "white" }}>{`${step}`}</div>
+        )
+      })}
     </div>
   );
 }
