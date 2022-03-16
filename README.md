@@ -1,6 +1,6 @@
 # Collatz Conjecture Exploration
 
-Just messing around with the 3x + 1 patterns. May get to plotting things with d3 eventually but for now just 👀 at the console.logs.
+Just messing around with the 3x + 1 patterns. May get to plotting things with d3 eventually but for now just scroll down beyond the header.
 
 For more reading:
 https://en.wikipedia.org/wiki/Collatz_conjecture
