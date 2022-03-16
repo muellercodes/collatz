@@ -22,7 +22,7 @@ jobs:
         CI=false yarn run build # CI=false to ignore warnings
 
     - name: Install Surge
-      run: yarn install -g surge
+      run: yarn global add surge
 
     - name: Deploy to Surge
       run:  surge ./build https://valuable-flesh.surge.sh/ --token ${{secrets.SURGE_TOKEN}}
