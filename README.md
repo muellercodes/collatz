@@ -8,6 +8,9 @@ https://en.wikipedia.org/wiki/Collatz_conjecture
 For watching and inspiration:
 https://www.youtube.com/watch?v=094y1Z2wpJg
 
+
+Adds some random changes.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
