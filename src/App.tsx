@@ -40,14 +40,6 @@ const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
     } else {
       return {length: curr.length, dupe: false};
     }
-    // if (
-    //   curr?.length === array[i - 1]?.length ||
-    //   curr?.length === array[i + 1]?.length
-    // ) {
-    //   return { dupe: true, curr };
-    // } else {
-    //   return { dupe: false, curr };
-    // }
   });
 };
 
