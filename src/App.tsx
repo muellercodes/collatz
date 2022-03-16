@@ -38,7 +38,7 @@ const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
     ) {
       return {length: curr.length, dupe: true};
     } else {
-      return {length: 0, dupe: false};
+      return {length: curr.length, dupe: false};
     }
     // if (
     //   curr?.length === array[i - 1]?.length ||
@@ -66,7 +66,7 @@ function App() {
         // let counter = 0;
         // if (step) 
         return (
-          <div key={i}>{`${step.dupe ? '-'.repeat(step.length) : '0'}`}</div>
+          <div key={i} style={{background: step.dupe ? 'grey' : 'white'}}>{`${step.dupe ? '-'.repeat(step.length) : '0'}`}</div>
         )
       })}
     </div>
