@@ -25,4 +25,4 @@ jobs:
       run: yarn global add surge
 
     - name: Deploy to Surge
-      run:  surge ./build https://valuable-flesh.surge.sh/ --token ${{secrets.SURGE_TOKEN}}
+      run:  surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{secrets.SURGE_TOKEN}}
