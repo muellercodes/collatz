@@ -4,7 +4,9 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-const COUNT = 1000;
+const COUNT: number = 1000;
+let maxNumber: number;
+let minNumber: number;
 
 const isEven = (number: number) => (number % 2 === 0 ? true : false);
 const nextNumber = (x: number) => (isEven(x) ? x / 2 : 3 * x + 1);
@@ -31,7 +33,7 @@ const amountOfStepsRange = (rangeTop: number, rangeBottom: number = 0) => {
 };
 
 const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
-  return amountOfStepsRange(rangeTop, rangeBottom).map((curr, i, array) => {
+  const lengthAndDupesArray = amountOfStepsRange(rangeTop, rangeBottom).map((curr, i, array) => {
     if (
       curr.length === array[i - 1]?.length ||
       curr.length === array[i + 1]?.length
@@ -41,6 +43,14 @@ const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
       return {length: curr.length, dupe: false};
     }
   });
+  const allLengths = lengthAndDupesArray.map((item) => {
+    return item.length;
+  })
+  maxNumber = Math.max(...allLengths);
+  minNumber = Math.min(...allLengths);
+  console.log(maxNumber);
+  return lengthAndDupesArray;
+
 };
 
 // rn takes about 4 seconds for one million iterations for that range
@@ -55,10 +65,12 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       {stepDuplications(COUNT).map((step: {length: number, dupe: boolean}, i) => {
-        // let counter = 0;
-        // if (step) 
+        // we want to map the min and max numbers to 0 and 100 and all in between
+        // (value - min) / (max - min)
+        const percentage = ((step.length - minNumber) / (maxNumber - minNumber)) * 100;
+        
         return (
-          <div key={i} style={{background: step.dupe ? 'grey' : 'white'}}>{`${step.dupe ? '-'.repeat(step.length) : '0'}`}</div>
+          <div key={i} style={{background: step.dupe ? 'grey' : 'white', filter: `brightness(${percentage}%)`}}>{`${step.dupe ? '-'.repeat(step.length) : '0'}`}</div>
         )
       })}
     </div>
