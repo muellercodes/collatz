@@ -1,12 +1,11 @@
 import React from "react";
-// import d3 from 'd3';
+import * as THREE from "three";
 
-import logo from "./logo.svg";
 import "./App.css";
 
-const COUNT: number = 1000;
-let maxNumber: number;
-let minNumber: number;
+const COUNT: number = 2000;
+let maxNumber: number = 0;
+let minNumber: number = 0;
 
 const isEven = (number: number) => (number % 2 === 0 ? true : false);
 const nextNumber = (x: number) => (isEven(x) ? x / 2 : 3 * x + 1);
@@ -33,48 +32,67 @@ const amountOfStepsRange = (rangeTop: number, rangeBottom: number = 0) => {
 };
 
 const stepDuplications = (rangeTop: number, rangeBottom: number = 0) => {
-  const lengthAndDupesArray = amountOfStepsRange(rangeTop, rangeBottom).map((curr, i, array) => {
-    if (
-      curr.length === array[i - 1]?.length ||
-      curr.length === array[i + 1]?.length
-    ) {
-      return {length: curr.length, dupe: true};
-    } else {
-      return {length: curr.length, dupe: false};
+  const lengthAndDupesArray = amountOfStepsRange(rangeTop, rangeBottom).map(
+    (curr, i, array) => {
+      if (
+        curr.length === array[i - 1]?.length ||
+        curr.length === array[i + 1]?.length
+      ) {
+        return { length: curr.length, dupe: true };
+      } else {
+        return { length: curr.length, dupe: false };
+      }
     }
-  });
+  );
   const allLengths = lengthAndDupesArray.map((item) => {
     return item.length;
-  })
+  });
   maxNumber = Math.max(...allLengths);
   minNumber = Math.min(...allLengths);
-  console.log(maxNumber);
   return lengthAndDupesArray;
-
 };
 
-// rn takes about 4 seconds for one million iterations for that range
-console.time(`stepDuplications_${COUNT}`);
-console.log(stepDuplications(COUNT));
-console.timeEnd(`stepDuplications_${COUNT}`);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
 
+const camera = new THREE.PerspectiveCamera(
+  45,
+  window.innerWidth / window.innerHeight,
+  1,
+  3000
+);
+camera.position.set(0, 0, 2500);
+camera.lookAt(1000, 0, 0);
+
+const scene = new THREE.Scene();
+
+//create a blue LineBasicMaterial
+const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+
+const points: THREE.Vector3[] = [];
+
+const steps = stepDuplications(COUNT);
+
+console.log({steps, maxNumber, minNumber});
+
+steps.forEach((step, i, arr) => {
+  points.push(new THREE.Vector3(i, step.length, 0));
+})
+
+const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+const line = new THREE.Line(geometry, material);
+
+scene.add(line);
+renderer.render(scene, camera);
+
+
+
+
+
+document.body.appendChild(renderer.domElement);
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-      {stepDuplications(COUNT).map((step: {length: number, dupe: boolean}, i) => {
-        // we want to map the min and max numbers to 0 and 100 and all in between
-        // (value - min) / (max - min)
-        const percentage = ((step.length - minNumber) / (maxNumber - minNumber)) * 100;
-        
-        return (
-          <div key={i} style={{background: step.dupe ? 'grey' : 'white', filter: `brightness(${percentage}%)`}}>{`${step.dupe ? '-'.repeat(step.length) : '0'}`}</div>
-        )
-      })}
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;
