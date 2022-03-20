@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as THREE from "three";
 
 import "./App.css";
@@ -73,11 +73,11 @@ const points: THREE.Vector3[] = [];
 
 const steps = stepDuplications(COUNT);
 
-console.log({steps, maxNumber, minNumber});
+console.log({ steps, maxNumber, minNumber });
 
 steps.forEach((step, i, arr) => {
   points.push(new THREE.Vector3(i, step.length, 0));
-})
+});
 
 const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
@@ -86,13 +86,14 @@ const line = new THREE.Line(geometry, material);
 scene.add(line);
 renderer.render(scene, camera);
 
-
-
-
-
 document.body.appendChild(renderer.domElement);
+
 function App() {
-  return <div className="App"></div>;
+  return <div className="App">
+    <header className="App-header">
+        A Collatz Conjecture Visualization
+      </header>
+  </div>;
 }
 
 export default App;
